@@ -15,7 +15,6 @@ class Cart extends StatefulWidget {
 }
 
 class _CartState extends State<Cart> {
-
   @override
   Widget build(BuildContext context) {
     var cartList = [
@@ -31,7 +30,7 @@ class _CartState extends State<Cart> {
         "name": "Tomato",
         "hname": "Banana",
         "picture": "Tomato3220.jpg",
-        "weights" :["1 KG", "2 KG", "3 KG", "4 KG", "5 KG"]
+        "weights": ["1 KG", "2 KG", "3 KG", "4 KG", "5 KG"]
       },
       {
         "pricers": '90',
@@ -52,7 +51,7 @@ class _CartState extends State<Cart> {
         "name": "Arbi",
         "hname": "Banana",
         "picture": "arbi22572.jpg",
-        "weights" :["1 KG", "2 KG", "3 KG", "4 KG", "5 KG"]
+        "weights": ["1 KG", "2 KG", "3 KG", "4 KG", "5 KG"]
       },
       {
         "pricers": '110',
@@ -69,15 +68,19 @@ class _CartState extends State<Cart> {
         "quantity": "1 KG",
       },
     ];
-    var values = [
-      {'userId': 1, 'rating': 4.5},
-      {'userId': 2, 'rating': 4.0},
-      {'userId': 3, 'rating': 3.5},
-      {'userId': 4, 'rating': 3.0}
-    ];
 
-    var result = values.map((m) => m['rating']).reduce((a, b) => a + b) / values.length;
-    print(result);
+    double total = 0.0;
+    for(int i=0;i<cartList.length;i++){
+      double price =   double.parse(cartList[i]['pricers']);
+      total = total + price;
+    }
+    double subtotal = total;
+    String shipping_price = '0.0';
+    if(total < 1000){
+        total = total + 20.0;
+        shipping_price = '20.0';
+    }
+
     return DefaultTabController(
       length: 3,
       child: Scaffold(
@@ -122,71 +125,73 @@ class _CartState extends State<Cart> {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: <Widget>[
-                  Container(
-                    width:200,
-                    padding: EdgeInsets.all(10.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: <Widget>[
-                        Text(
-                          "Sub Total",
-                          style: TextStyle(
-                            color: Theme.of(context).primaryColor,
-                            fontWeight: FontWeight.w700,
-                          ),
-                          textAlign: TextAlign.right,
+                      Container(
+                        width: 200,
+                        padding: EdgeInsets.all(10.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: <Widget>[
+                            Text(
+                              "Sub Total",
+                              style: TextStyle(
+                                color: Theme.of(context).primaryColor,
+                                fontWeight: FontWeight.w700,
+                              ),
+                              textAlign: TextAlign.right,
+                            ),
+                            SizedBox(height: 5.0),
+                            Text(
+                              "Shipping Chanrges",
+                              style: TextStyle(
+                                color: Colors.red,
+                                fontWeight: FontWeight.w700,
+                              ),
+                              textAlign: TextAlign.right,
+                            ),
+                            SizedBox(height: 5.0),
+                            Text(
+                              "Total",
+                              style: TextStyle(
+                                fontWeight: FontWeight.w700,
+                                fontSize: 16,
+                              ),
+                              textAlign: TextAlign.right,
+                            ),
+                          ],
                         ),
-                        SizedBox(height: 5.0),
-                        Text(
-                          "Shipping Chanrges",
-                          style: TextStyle(
-                            color: Colors.red,
-                            fontWeight: FontWeight.w700,
-                          ), textAlign: TextAlign.right,
+                      ),
+                      Container(
+                        padding: EdgeInsets.all(10.0),
+                        child: Column(
+                          children: <Widget>[
+                            Text(
+                              "₹ $subtotal" ,
+                              style: TextStyle(
+                                color: Theme.of(context).primaryColor,
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                            SizedBox(height: 5.0),
+                            Text(
+                              "₹ "+ shipping_price,
+                              style: TextStyle(
+                                color: Colors.red,
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                            SizedBox(height: 5.0),
+                            Text(
+                              "₹ $total" ,
+                              style: TextStyle(
+                                fontWeight: FontWeight.w700,
+                                fontSize: 16,
+                              ),
+                            ),
+                          ],
                         ),
-                        SizedBox(height: 5.0),
-                        Text(
-                          "Total",
-                          style: TextStyle(
-                            fontWeight: FontWeight.w700,
-                            fontSize: 16,
-                          ), textAlign: TextAlign.right,
-                        ),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    padding: EdgeInsets.all(10.0),
-                    child: Column(
-                      children: <Widget>[
-                        Text(
-                          "₹ 142",
-                          style: TextStyle(
-                            color: Theme.of(context).primaryColor,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                        SizedBox(height: 5.0),
-                        Text(
-                          "₹ 0",
-                          style: TextStyle(
-                            color: Colors.red,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                        SizedBox(height: 5.0),
-                        Text(
-                          "₹ 142",
-                          style: TextStyle(
-                            fontWeight: FontWeight.w700,
-                            fontSize: 16,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ]),
+                      ),
+                    ]),
               ),
               Container(
                 color: Theme.of(context).primaryColor,
@@ -239,12 +244,15 @@ class _CartState extends State<Cart> {
                         ],
                       ),
                       onPressed: () {
-                        Navigator.of(context)
-                            .push(MaterialPageRoute(builder: (context) {
-                          return Checkout(
-                            title: "Checkout",
-                          );
-                        }));
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) {
+                              return Checkout(
+                                title: "Checkout",
+                              );
+                            },
+                          ),
+                        );
                       },
                     ),
                   ],

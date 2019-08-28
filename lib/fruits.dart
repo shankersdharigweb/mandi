@@ -51,9 +51,11 @@ class _FruitsState extends State<Fruits> {
      "weights" :["1 KG", "2 KG", "3 KG", "4 KG", "5 KG"]
     },
   ];
+  int counter = 0 ;
   @override
   Widget build(BuildContext context) {
 
+    var cartCounting = [];
     return DefaultTabController(
       length: 3,
       child: Scaffold(
@@ -65,15 +67,41 @@ class _FruitsState extends State<Fruits> {
               onPressed: () => Navigator.pop(context, false),
             ),
 
-            IconButton(
-              icon: Icon(Icons.shopping_cart),
-              onPressed: () {
-                Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-                  return Cart(
-                    title: "Cart",
-                  );
-                }));
-              },
+            new Stack(
+              children: <Widget>[
+                new IconButton(icon: Icon(Icons.shopping_cart),
+                  onPressed: () {
+                    Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+                      return Cart(
+                        title: "Cart",
+                      );
+                    }));
+                  },
+                ),
+                new Positioned(
+                  right: 5,
+                  top: 5,
+                  child: new Container(
+                    padding: EdgeInsets.only(left:4,right:4,top:3,bottom:3),
+                    decoration: new BoxDecoration(
+                      color: Colors.red,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    constraints: BoxConstraints(
+                      minWidth: 16,
+                      minHeight: 16,
+                    ),
+                    child: Text(
+                      '$counter',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 9,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ),
+              ],
             ),
             IconButton(
               icon: Icon(Icons.home),
@@ -111,7 +139,7 @@ class _FruitsState extends State<Fruits> {
             Column(
               children: [
                 Expanded(
-                    child: Products(productList)),
+                    child: Products(productList,counter)),
               ],
             ),
             Center(

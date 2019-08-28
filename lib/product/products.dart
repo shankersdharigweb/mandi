@@ -1,14 +1,21 @@
 import 'package:flutter/material.dart';
 
-class Products extends StatelessWidget {
+class Products extends StatefulWidget {
   final productList;
-  List<String> _weights = ["1 KG", "2 KG", "3 KG", "4 KG"];
-  List<DropdownMenuItem<String>> dropDownMenuWeights;
-  String _currentWeights;
+  var counter;
 
   @override
-  Products(this.productList);
+  Products(this.productList, this.counter);
 
+  @override
+  _ProductsState createState() => new _ProductsState();
+}
+
+class _ProductsState extends State<Products> {
+  String _currentWeight;
+  List<String> _weights = ["1 KG", "2 KG", "3 KG", "4 KG", "5 KG", "6 KG"];
+  List<DropdownMenuItem<String>> dropDownMenuWeights;
+  bool agree = false;
   List<DropdownMenuItem<String>> getDropDownMenuWeights() {
     List<DropdownMenuItem<String>> items = new List();
     for (String states in _weights) {
@@ -18,8 +25,13 @@ class Products extends StatelessWidget {
   }
 
   Widget _buildProductItem(BuildContext context, int index) {
+    @override
+    void initState() {
+      dropDownMenuWeights = getDropDownMenuWeights();
+      _currentWeight = dropDownMenuWeights[0].value;
+      super.initState();
+    }
     Size size = MediaQuery.of(context).size;
-    String selected;
     OutlineInputBorder border_style = OutlineInputBorder(
         borderRadius: BorderRadius.all(Radius.circular(1.0)));
     return Container(
@@ -32,19 +44,22 @@ class Products extends StatelessWidget {
                 Container(
                   padding: EdgeInsets.all(10.0),
                   width: size.width * 0.5,
+                  height:120,
                   child: Image.network(
                     'http://onlinemandi.com/uploads/products/medium/' +
-                        productList[index]['picture'],
+                        widget.productList[index]['picture'],
                   ),
                 ),
                 Container(
                   width: size.width * 0.4,
+                  height:120,
                   child: Column(
                     children: <Widget>[
+                      SizedBox(height: 10.0),
                       Row(
                         children: <Widget>[
                           Text(
-                            productList[index]['name'],
+                            widget.productList[index]['name'],
                             style: TextStyle(
                               color: Colors.green,
                               fontSize: 20.0,
@@ -60,7 +75,7 @@ class Products extends StatelessWidget {
                       Row(
                         children: <Widget>[
                           Text(
-                            productList[index]['hname'],
+                            widget.productList[index]['hname'],
                             style: TextStyle(
                               color: Colors.black,
                               fontSize: 17.0,
@@ -72,12 +87,12 @@ class Products extends StatelessWidget {
                           ),
                         ],
                       ),
-                      SizedBox(height: 40.0),
+                      SizedBox(height: 20.0),
                       Row(
                         children: <Widget>[
                           SizedBox(height: 20.0),
                           Text(
-                            "₹ " + productList[index]['pricers'],
+                            "₹ " + widget.productList[index]['pricers'],
                             overflow: TextOverflow.ellipsis,
                             maxLines: 1,
                             style: TextStyle(
@@ -114,9 +129,8 @@ class Products extends StatelessWidget {
                       border: border_style,
                     ),
                     hint: Text("Select weight"),
-                    value: selected,
-                    items:
-                    ["1 KG", "2 KG", "3 KG", "4 KG", "5 KG"]
+                    value: _currentWeight,
+                    items: _weights
                         .map(
                           (label) => DropdownMenuItem(
                             child: Text(label),
@@ -124,9 +138,9 @@ class Products extends StatelessWidget {
                           ),
                         )
                         .toList(),
-                    onChanged: (value) {
-                      return selected = value;
-                    },
+                      onChanged: (value) {
+                        setState(() => _currentWeight = value);
+                      },
                   ),
                 ),
                 Container(
@@ -136,14 +150,19 @@ class Products extends StatelessWidget {
                   height: 65,
                   child: RaisedButton(
                     child: new Text(
-                      "Add To Cart",
+                      "Add To Cart" + widget.counter.toString(),
                       style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
                     // gives padding to the button
-                    onPressed: () {},
+                    onPressed: () {
+                      print("Increment Counter" + widget.counter.toString());
+                      setState(() {
+                         widget.counter++;
+                      });
+                    },
                     color: Colors.green,
                     //color when the button is being actively pressed, quickly fills the button and fades out after
                   ),
@@ -160,11 +179,7 @@ class Products extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView.builder(
       itemBuilder: _buildProductItem,
-      itemCount: productList.length,
+      itemCount: widget.productList.length,
     );
-  }
-
-  void changedDropDownWeights(String selectedWeights) {
-    _currentWeights = selectedWeights;
   }
 }

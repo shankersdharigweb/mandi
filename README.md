@@ -1,4 +1,4 @@
-# packt_chapter_3
+# onlinemandi
 
 Sample app for &quot;Flutter quick start guide&quot; Packt&#x27;s book
 

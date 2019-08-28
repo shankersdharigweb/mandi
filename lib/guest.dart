@@ -181,7 +181,9 @@ class _GuestState extends State<Guest> {
                       hint: Text("Select State"),
                       value: _currentStates,
                       items: dropDownMenuStates,
-                      onChanged: changedDropDownStates,
+                      onChanged: (value) {
+                        setState(() => _currentStates = value);
+                      },
                     ),
                     SizedBox(height: 10.0),
                     DropdownButtonFormField(
@@ -193,7 +195,9 @@ class _GuestState extends State<Guest> {
                       hint: Text("Select City"),
                       value: _currentCities,
                       items: dropDownMenuCities,
-                      onChanged: changedDropDownCities,
+                      onChanged: (value) {
+                        setState(() => _currentCities = value);
+                      },
                     ),
                     SizedBox(height: 10.0),
                     address,

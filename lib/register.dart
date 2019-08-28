@@ -258,7 +258,9 @@ class _RegisterState extends State<Register> {
                       hint: Text("Select State"),
                       value: _currentStates,
                       items: dropDownMenuStates,
-                      onChanged: changedDropDownStates,
+                      onChanged: (value) {
+                        setState(() => _currentStates = value);
+                      },
                     ),
                     SizedBox(height: 10.0),
                     DropdownButtonFormField(
@@ -270,7 +272,9 @@ class _RegisterState extends State<Register> {
                       hint: Text("Select City"),
                       value: _currentCities,
                       items: dropDownMenuCities,
-                      onChanged: changedDropDownCities,
+                      onChanged: (value) {
+                        setState(() => _currentCities = value);
+                      },
                     ),
                     SizedBox(height: 10.0),
                     address,
@@ -336,17 +340,5 @@ class _RegisterState extends State<Register> {
         ),
       ),
     );
-  }
-
-  void changedDropDownStates(String selectedStates) {
-    setState(() {
-      _currentStates = selectedStates;
-    });
-  }
-
-  void changedDropDownCities(String selectedCities) {
-    setState(() {
-      _currentStates = selectedCities;
-    });
   }
 }
