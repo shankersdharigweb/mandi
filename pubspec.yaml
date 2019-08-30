@@ -17,14 +17,17 @@ environment:
   sdk: ">=2.1.0 <3.0.0"
 
 dependencies:
-  carousel_slider: ^1.3.0
 
   flutter:
     sdk: flutter
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
+  carousel_slider: ^1.3.0
+  loader_search_bar: ^1.0.2
   cupertino_icons: ^0.1.2
+  carousel_pro: ^0.0.13
+  flutter_range_slider: "^1.0.1"
 
 dev_dependencies:
   flutter_test:
@@ -73,5 +76,31 @@ flutter:
   # For details regarding fonts from package dependencies,
   # see https://flutter.io/custom-fonts/#from-packages
 
-assets:
-  - images/
+  assets:
+    - images/back.jpg
+    - images/groceries.jpg
+    - images/grtwo.jpg
+    - images/grthre.jpg
+    - images/veg.jpg
+    - images/frozen.jpg
+    - images/bev.jpg
+    - images/brand_f.jpg
+    - images/be.jpg
+    - images/eggs.jpg
+    - images/home.jpg
+    - images/nonveg.jpg
+    - images/apple.jpg
+    - images/grapes.jpg
+    - images/guava.jpg
+    - images/kiwi.jpg
+    - images/lemons.jpg
+    - images/pineapple.jpg
+    - images/tomato.jpg
+    - images/gro.jpg
+
+
+
+
+
+
+    - assets/address.json

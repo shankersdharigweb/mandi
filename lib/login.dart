@@ -13,6 +13,8 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  String _email;
+  String _password;
   TextStyle style = TextStyle(fontSize: 15.0);
   final _formKey = GlobalKey<FormState>();
   bool _autoValidate = false;
@@ -33,6 +35,8 @@ class _LoginState extends State<Login> {
           return 'Email or Mobile is required';
         }
       },
+      keyboardType: TextInputType.emailAddress,
+      onSaved: (val) => _email = val,
     );
     final passwordField = TextFormField(
       obscureText: true,
@@ -48,6 +52,8 @@ class _LoginState extends State<Login> {
           return 'Password is required!';
         }
       },
+      keyboardType: TextInputType.text,
+      onSaved: (val) => _password = val,
     );
     final loginButon = Material(
       child:RaisedButton(

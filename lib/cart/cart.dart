@@ -142,7 +142,7 @@ class _CartState extends State<Cart> {
                             ),
                             SizedBox(height: 5.0),
                             Text(
-                              "Shipping Chanrges",
+                              "Shipping Charges",
                               style: TextStyle(
                                 color: Colors.red,
                                 fontWeight: FontWeight.w700,

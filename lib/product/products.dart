@@ -12,7 +12,6 @@ class Products extends StatefulWidget {
 }
 
 class _ProductsState extends State<Products> {
-  String _currentWeight;
   List<String> _weights = ["1 KG", "2 KG", "3 KG", "4 KG", "5 KG", "6 KG"];
   List<DropdownMenuItem<String>> dropDownMenuWeights;
   bool agree = false;
@@ -23,14 +22,16 @@ class _ProductsState extends State<Products> {
     }
     return items;
   }
-
+  var _currentWeight;
   Widget _buildProductItem(BuildContext context, int index) {
+
     @override
     void initState() {
       dropDownMenuWeights = getDropDownMenuWeights();
-      _currentWeight = dropDownMenuWeights[0].value;
+      _currentWeight = dropDownMenuWeights[2].value;
       super.initState();
     }
+
     Size size = MediaQuery.of(context).size;
     OutlineInputBorder border_style = OutlineInputBorder(
         borderRadius: BorderRadius.all(Radius.circular(1.0)));
@@ -161,7 +162,7 @@ class _ProductsState extends State<Products> {
                       print("Increment Counter" + widget.counter.toString());
                       setState(() {
                          widget.counter++;
-                      });
+                      },);
                     },
                     color: Colors.green,
                     //color when the button is being actively pressed, quickly fills the button and fades out after

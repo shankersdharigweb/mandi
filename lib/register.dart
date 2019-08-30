@@ -14,8 +14,8 @@ class Register extends StatefulWidget {
 
 class _RegisterState extends State<Register> {
   TextStyle style = TextStyle(fontSize: 15.0);
-  final _formKey = GlobalKey<FormState>();
-  bool _autoValidate = false;
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  bool _autoValidate = true;
   OutlineInputBorder border_style =
       OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(30.0)));
   String _currentCities;
@@ -86,9 +86,20 @@ class _RegisterState extends State<Register> {
     return items;
   }
 
+  String _email;
+  String _state;
+  String _city;
+  String _password;
+  String _firstname;
+  String _cpassword;
+  String _lastname;
+  String _address;
+  String _phone;
+
   @override
   Widget build(BuildContext context) {
     String patttern = r'(^(?:[+0]9)?[0-9]{10,12}$)';
+    Pattern email_pattern = r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
     RegExp regExp = new RegExp(patttern);
 
     final fname = TextFormField(
@@ -99,20 +110,30 @@ class _RegisterState extends State<Register> {
         hintText: "First Name",
         border: border_style,
       ),
+      keyboardType: TextInputType.text,
+      onSaved: (val) => _firstname = val,
       validator: (String value) {
         if (value.trim().isEmpty) {
           return 'First Name is required!';
         }
       },
     );
-    final lname = TextField(
+
+    final lname =TextFormField(
       style: style,
       decoration: InputDecoration(
         contentPadding:
-            EdgeInsets.only(top: 15, left: 30, bottom: 15, right: 30),
+        EdgeInsets.only(top: 15, left: 30, bottom: 15, right: 30),
         hintText: "Last Name",
         border: border_style,
       ),
+      keyboardType: TextInputType.text,
+      onSaved: (val) => _lastname = val,
+      validator: (String value) {
+        if (value.trim().isEmpty) {
+          return 'Last Name is required!';
+        }
+      },
     );
     final phone = TextFormField(
       style: style,
@@ -127,9 +148,13 @@ class _RegisterState extends State<Register> {
           return 'Phone Number is required!';
         } else if (!regExp.hasMatch(value)) {
           return 'Please enter valid mobile number';
-        } else if (value.trim().length < 8) {
-          return 'Invalid phone number!';
+        } else if (value.trim().length < 10) {
+          return 'Mobile Number must be of 10 digit!';
         }
+      },
+      keyboardType: TextInputType.phone,
+      onSaved: (String val) {
+      _phone = val;
       },
     );
     final address = TextFormField(
@@ -140,6 +165,8 @@ class _RegisterState extends State<Register> {
         hintText: "Address",
         border: border_style,
       ),
+      keyboardType: TextInputType.text,
+      onSaved: (val) => _address = val,
       validator: (String value) {
         if (value.trim().isEmpty) {
           return 'Address is required!';
@@ -151,14 +178,22 @@ class _RegisterState extends State<Register> {
       decoration: InputDecoration(
         contentPadding:
             EdgeInsets.only(top: 15, left: 30, bottom: 15, right: 30),
-        hintText: "Email or Mobile Number",
+        hintText: "Email ",
         border: border_style,
       ),
+
       validator: (String value) {
+        RegExp regex = new RegExp(email_pattern);
         if (value.trim().isEmpty) {
-          return 'Email or Mobile is required';
-        }
+          return 'Email is required!';
+        }else
+        if (!regex.hasMatch(value.trim()))
+          return 'Enter Valid Email';
+        else
+          return null;
       },
+      keyboardType: TextInputType.emailAddress,
+      onSaved: (val) => _email = val,
     );
     final passwordField = TextFormField(
       obscureText: true,
@@ -174,6 +209,8 @@ class _RegisterState extends State<Register> {
           return 'Password is required';
         }
       },
+      keyboardType: TextInputType.text,
+      onSaved: (val) => _password = val,
     );
     final confirmPassword = TextFormField(
       obscureText: true,
@@ -189,6 +226,8 @@ class _RegisterState extends State<Register> {
           return 'Confirm Password is required';
         }
       },
+      keyboardType: TextInputType.text,
+      onSaved: (val) => _cpassword = val,
     );
     final registerButon = Material(
       child: RaisedButton(
@@ -284,18 +323,23 @@ class _RegisterState extends State<Register> {
                     confirmPassword,
                     SizedBox(height: 10.0),
                     Center(
-                      child: Row(
-                        children: <Widget>[
-                          Checkbox(
-                            value: agree,
-                            onChanged: (bool value) {
-                              setState(() {
-                                agree = value;
-                              });
-                            },
-                          ),
-                          Text("I Agree to Terms & Conditions"),
-                        ],
+                      child: CheckboxListTile(
+                        value: agree,
+                        onChanged: (val) {
+                          if (agree == false) {
+                            setState(() {
+                              agree = true;
+                            });
+                          } else if (agree == true) {
+                            setState(() {
+                              agree = false;
+                            });
+                          }
+                        },
+                        title: new Text(
+                          'I Agree to Terms & Conditions.',
+                        ),
+                        controlAffinity: ListTileControlAffinity.leading,
                       ),
                     ),
                     SizedBox(height: 10.0),

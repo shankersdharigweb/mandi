@@ -5,14 +5,25 @@ import 'package:onlinemandi/banners.dart';
 
 class Guest extends StatefulWidget {
   final String title;
-
-  const Guest({Key key, this.title}) : super(key: key);
+  final Key fieldKey;
+  final String hintText;
+  final String labelText;
+  final String helperText;
+  final FormFieldSetter<String> onSaved;
+  final FormFieldValidator<String> validator;
+  final ValueChanged<String> onFieldSubmitted;
+  const Guest({Key key, this.title, this.fieldKey, this.hintText, this.labelText, this.helperText, this.onSaved, this.validator, this.onFieldSubmitted}) : super(key: key);
 
   @override
   _GuestState createState() => _GuestState();
 }
 
 class _GuestState extends State<Guest> {
+  String _email;
+  String _state;
+  String _city;
+  String _phone;
+
   final _formKey = GlobalKey<FormState>();
   TextStyle style = TextStyle(fontSize: 15.0);
   OutlineInputBorder border_style =
@@ -90,19 +101,23 @@ class _GuestState extends State<Guest> {
     final phone = TextFormField(
       style: style,
       decoration: InputDecoration(
-        contentPadding: EdgeInsets.only(top: 15, left: 30, bottom: 15, right: 30),
+        contentPadding:
+        EdgeInsets.only(top: 15, left: 30, bottom: 15, right: 30),
         hintText: "Phone Number",
         border: border_style,
       ),
-      validator: (String value) {
+      validator: (value) {
         if (value.trim().isEmpty) {
           return 'Phone Number is required!';
-        }else if (!regExp.hasMatch(value)) {
+        } else if (!regExp.hasMatch(value)) {
           return 'Please enter valid mobile number';
-        }else
-        if (value.trim().length < 8) {
-          return 'Invalid phone number!';
+        } else if (value.trim().length < 10) {
+          return 'Mobile Number must be of 10 digit!';
         }
+      },
+      keyboardType: TextInputType.phone,
+      onSaved: (String val) {
+        _phone = val;
       },
     );
     final address = TextFormField(
@@ -203,21 +218,23 @@ class _GuestState extends State<Guest> {
                     address,
                     SizedBox(height: 10.0),
                     Center(
-                      child: Row(
-                        children: <Widget>[
-                          Checkbox(
-                            value: agree,
-                            onChanged: (bool value) {
-                              setState(
-                                    () {
-                                  agree = value;
-                                },
-                              );
-                            },
-
-                          ),
-                          Text("I Agree to Terms & Conditions"),
-                        ],
+                      child: CheckboxListTile(
+                        value: agree,
+                        onChanged: (val) {
+                          if (agree == false) {
+                            setState(() {
+                              agree = true;
+                            });
+                          } else if (agree == true) {
+                            setState(() {
+                              agree = false;
+                            });
+                          }
+                        },
+                        title: new Text(
+                          'I Agree to Terms & Conditions.',
+                        ),
+                        controlAffinity: ListTileControlAffinity.leading,
                       ),
                     ),
                     SizedBox(height: 10.0),
