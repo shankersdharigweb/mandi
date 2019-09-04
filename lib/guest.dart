@@ -12,7 +12,18 @@ class Guest extends StatefulWidget {
   final FormFieldSetter<String> onSaved;
   final FormFieldValidator<String> validator;
   final ValueChanged<String> onFieldSubmitted;
-  const Guest({Key key, this.title, this.fieldKey, this.hintText, this.labelText, this.helperText, this.onSaved, this.validator, this.onFieldSubmitted}) : super(key: key);
+
+  const Guest(
+      {Key key,
+      this.title,
+      this.fieldKey,
+      this.hintText,
+      this.labelText,
+      this.helperText,
+      this.onSaved,
+      this.validator,
+      this.onFieldSubmitted})
+      : super(key: key);
 
   @override
   _GuestState createState() => _GuestState();
@@ -27,7 +38,7 @@ class _GuestState extends State<Guest> {
   final _formKey = GlobalKey<FormState>();
   TextStyle style = TextStyle(fontSize: 15.0);
   OutlineInputBorder border_style =
-  OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(35.0)));
+      OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(35.0)));
   String _currentCities;
   String _currentStates;
   List _states = [
@@ -65,6 +76,7 @@ class _GuestState extends State<Guest> {
   List _cities = ["Ambala", "Chandigarh", "Mohali", "Panchkula", "Rajpura"];
   List<DropdownMenuItem<String>> dropDownMenuStates;
   List<DropdownMenuItem<String>> dropDownMenuCities;
+
   @override
   void initState() {
     dropDownMenuStates = getDropDownMenuItems();
@@ -102,7 +114,7 @@ class _GuestState extends State<Guest> {
       style: style,
       decoration: InputDecoration(
         contentPadding:
-        EdgeInsets.only(top: 15, left: 30, bottom: 15, right: 30),
+            EdgeInsets.only(top: 15, left: 30, bottom: 15, right: 30),
         hintText: "Phone Number",
         border: border_style,
       ),
@@ -123,7 +135,8 @@ class _GuestState extends State<Guest> {
     final address = TextFormField(
       style: style,
       decoration: InputDecoration(
-        contentPadding: EdgeInsets.only(top: 15, left: 30, bottom: 15, right: 30),
+        contentPadding:
+            EdgeInsets.only(top: 15, left: 30, bottom: 15, right: 30),
         hintText: "Address",
         border: border_style,
       ),
@@ -134,7 +147,7 @@ class _GuestState extends State<Guest> {
       },
     );
     final GuestButon = Material(
-      child:RaisedButton(
+      child: RaisedButton(
         color: Colors.green,
         padding: EdgeInsets.only(top: 15, left: 30, bottom: 15, right: 30),
         child: Text(
@@ -155,7 +168,8 @@ class _GuestState extends State<Guest> {
           borderRadius: new BorderRadius.circular(30.0),
         ),
       ),
-    );;
+    );
+    ;
     return MaterialApp(
       theme: ThemeData(
         primarySwatch: Colors.green,
@@ -231,10 +245,19 @@ class _GuestState extends State<Guest> {
                             });
                           }
                         },
+                        subtitle: !agree
+                            ? Text(
+                                'Agree to Terms & Conditions.',
+                                style: TextStyle(
+                                    color: Colors.red, fontSize: 13.0),
+                              )
+                            : null,
                         title: new Text(
                           'I Agree to Terms & Conditions.',
+                          style: TextStyle(fontSize: 14.0),
                         ),
                         controlAffinity: ListTileControlAffinity.leading,
+                        activeColor: Colors.green,
                       ),
                     ),
                     SizedBox(height: 10.0),

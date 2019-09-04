@@ -336,10 +336,18 @@ class _RegisterState extends State<Register> {
                             });
                           }
                         },
+                        subtitle: !agree
+                            ? Text(
+                          'Agree to Terms & Conditions.',
+                          style: TextStyle(color: Colors.red,fontSize: 13.0),
+                        )
+                            : null,
                         title: new Text(
                           'I Agree to Terms & Conditions.',
+                          style: TextStyle(fontSize: 14.0),
                         ),
                         controlAffinity: ListTileControlAffinity.leading,
+                        activeColor: Colors.green,
                       ),
                     ),
                     SizedBox(height: 10.0),
