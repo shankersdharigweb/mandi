@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:onlinemandi/product/products.dart';
 import 'package:onlinemandi/sidebar.dart';
 import 'package:onlinemandi/banners.dart';
-import 'package:onlinemandi/cart/cartItems.dart';
 import 'package:onlinemandi/cart/cart.dart';
+import 'package:onlinemandi/cart/payment.dart';
 
 class Checkout extends StatefulWidget {
   final String title;
@@ -16,10 +15,7 @@ class Checkout extends StatefulWidget {
 
 class check_out extends State<Checkout> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  bool checkboxValueA = true;
-  bool checkboxValueB = false;
-  bool checkboxValueC = false;
-
+  bool checkboxValueA = false;
   var cartList = [
     {
       "pricers": '85',
@@ -71,6 +67,32 @@ class check_out extends State<Checkout> {
       "quantity": "1 KG",
     },
   ];
+  var addressList = [
+    {
+      "name": "Hari Shanker",
+      "address": "# 156 Mauli Jagran 2",
+      "phone_number": "8699623270",
+      "state": "Chandigarh",
+      "city": "Chandigarh",
+      "pincode": "160102",
+    },
+    {
+      "name": "Hari",
+      "address": "# 265 Sector 22",
+      "phone_number": "9485612548",
+      "state": "Haryana",
+      "city": "Panchkula",
+      "pincode": "160022"
+    },
+    {
+      "name": "Shanker",
+      "address": "# 105 Sector 20",
+      "phone_number": "8695352641",
+      "state": "Chandigarh",
+      "city": "Chandigarh",
+      "pincode": "160019"
+    },
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -86,16 +108,10 @@ class check_out extends State<Checkout> {
       total = total + 20.0;
       shipping_price = '20.0';
     }
-
-    final double height = MediaQuery.of(context).size.height;
     int counter = 0;
     AppBar appBar = new AppBar(
       title: new Text(widget.title),
       actions: <Widget>[
-        IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: () => Navigator.pop(context, false),
-        ),
         new Stack(
           children: <Widget>[
             new IconButton(
@@ -146,7 +162,6 @@ class check_out extends State<Checkout> {
         ),
       ],
     );
-
     return new Scaffold(
       key: _scaffoldKey,
       appBar: appBar,
@@ -156,70 +171,81 @@ class check_out extends State<Checkout> {
       body: ListView(
         children: <Widget>[
           Container(
-              margin: EdgeInsets.all(5.0),
-              child: Card(
-                  child: Container(
-                      child: Row(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  // three line description
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 8.0),
-                        child: Container(
-                            alignment: Alignment.center,
-                            child: Row(
-                              children: <Widget>[
-                                Text(
-                                  'Delivery',
-                                  style: TextStyle(
-                                      fontSize: 18.0,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.black),
-                                ),
-                                IconButton(
-                                    icon: Icon(
-                                      Icons.play_circle_outline,
-                                      color: Colors.blue,
-                                    ),
-                                    onPressed: null)
-                              ],
-                            )),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 8.0),
-                        child: Container(
-                            alignment: Alignment.center,
-                            child: Row(
-                              children: <Widget>[
-                                Text(
-                                  'Payment',
-                                  style: TextStyle(
-                                      fontSize: 18.0,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.black38),
-                                ),
-                                IconButton(
+            margin: EdgeInsets.all(5.0),
+            child: Card(
+              child: Container(
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    // three line description
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 8.0),
+                          child: Container(
+                              alignment: Alignment.center,
+                              child: Row(
+                                children: <Widget>[
+                                  Text(
+                                    'Delivery',
+                                    style: TextStyle(
+                                        fontSize: 18.0,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black),
+                                  ),
+                                  IconButton(
+                                      icon: Icon(
+                                        Icons.play_circle_outline,
+                                        color: Colors.green,
+                                      ),
+                                      onPressed: null)
+                                ],
+                              )),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 8.0),
+                          child: Container(
+                              alignment: Alignment.center,
+                              child: Row(
+                                children: <Widget>[
+                                  Text(
+                                    'Payment',
+                                    style: TextStyle(
+                                        fontSize: 18.0,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black38),
+                                  ),
+                                  IconButton(
                                     icon: Icon(
                                       Icons.check_circle,
                                       color: Colors.black38,
                                     ),
-                                    onPressed: null)
-                              ],
-                            )),
-                      ),
-                    ],
-                  ),
-                ],
-              )))),
-          _verticalDivider(),
+                                    onPressed: () {
+                                      Navigator.of(context).push(
+                                          MaterialPageRoute(builder: (context) {
+                                        return Payment(
+                                          title: "Checkout",
+                                        );
+                                      }));
+                                    },
+                                  ),
+                                ],
+                              ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
           Container(
             alignment: Alignment.topLeft,
             margin:
-                EdgeInsets.only(left: 12.0, top: 5.0, right: 0.0, bottom: 5.0),
+                EdgeInsets.only(left: 12.0, top: 0.0, right: 0.0, bottom: 5.0),
             child: new Text(
               'Delivery Address',
               style: TextStyle(
@@ -229,212 +255,112 @@ class check_out extends State<Checkout> {
             ),
           ),
           Container(
-            height: 165.0,
-            child: ListView(
+            height: 175.0,
+            child: ListView.builder(
               scrollDirection: Axis.horizontal,
-              children: <Widget>[
-                Container(
-                  width: 56.0,
-                  child: Card(
-                    elevation: 3.0,
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        new Container(
-                            alignment: Alignment.center,
-                            child: IconButton(
-                                icon: Icon(Icons.add), onPressed: null)),
-                      ],
-                    ),
-                  ),
-                ),
-                Container(
-                  height: 165.0,
-                  width: 200.0,
-                  margin: EdgeInsets.all(7.0),
-                  child: Card(
-                    elevation: 3.0,
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        new Column(
-                          children: <Widget>[
-                            new Container(
-                              margin: EdgeInsets.only(
-                                  left: 12.0,
-                                  top: 5.0,
-                                  right: 0.0,
-                                  bottom: 5.0),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+              itemCount: addressList.length,
+              itemBuilder: (BuildContext cont, int index) {
+                //bool checkboxValueA[index] = false;
+                return SafeArea(
+                  child: Row(
+                    children: <Widget>[
+                      addAddress(index),
+                      Container(
+                        height: 175.0,
+                        width: 200.0,
+                        margin: EdgeInsets.all(5.0),
+                        child: Card(
+                          elevation: 3.0,
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              new Column(
                                 children: <Widget>[
-                                  new Text(
-                                    'Naomi A. Schultz',
-                                    style: TextStyle(
-                                      color: Colors.black87,
-                                      fontSize: 15.0,
-                                      fontWeight: FontWeight.bold,
-                                      letterSpacing: 0.5,
-                                    ),
-                                  ),
-                                  _verticalDivider(),
-                                  new Text(
-                                    '2585 Columbia Boulevard',
-                                    style: TextStyle(
-                                        color: Colors.black45,
-                                        fontSize: 13.0,
-                                        letterSpacing: 0.5),
-                                  ),
-                                  _verticalDivider(),
-                                  new Text(
-                                    'Salisbury',
-                                    style: TextStyle(
-                                        color: Colors.black45,
-                                        fontSize: 13.0,
-                                        letterSpacing: 0.5),
-                                  ),
-                                  _verticalDivider(),
-                                  new Text(
-                                    'MD 21801',
-                                    style: TextStyle(
-                                        color: Colors.black45,
-                                        fontSize: 13.0,
-                                        letterSpacing: 0.5),
-                                  ),
                                   new Container(
                                     margin: EdgeInsets.only(
-                                        left: 00.0,
-                                        top: 05.0,
+                                        left: 12.0,
+                                        top: 5.0,
                                         right: 0.0,
                                         bottom: 5.0),
-                                    child: Row(
+                                    child: Column(
                                       crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
+                                          CrossAxisAlignment.start,
                                       children: <Widget>[
+                                        _verticalDivider(),
                                         new Text(
-                                          'Delivery Address',
+                                          addressList[index]['name'],
                                           style: TextStyle(
+                                            color: Colors.black87,
                                             fontSize: 15.0,
-                                            color: Colors.black26,
+                                            fontWeight: FontWeight.bold,
+                                            letterSpacing: 0.5,
                                           ),
                                         ),
-                                        _verticalD(),
-                                        new Checkbox(
-                                          value: checkboxValueA,
-                                          onChanged: (bool value) {
-                                            setState(() {
-                                              checkboxValueA = value;
-                                            });
-                                          },
-                                        ),
-                                      ],
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                Container(
-                  height: 130.0,
-                  width: 200.0,
-                  margin: EdgeInsets.all(7.0),
-                  child: Card(
-                    elevation: 3.0,
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        new Column(
-                          children: <Widget>[
-                            new Container(
-                              margin: EdgeInsets.only(
-                                  left: 12.0,
-                                  top: 5.0,
-                                  right: 0.0,
-                                  bottom: 5.0),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: <Widget>[
-                                  new Text(
-                                    'Lisa J. Cunningham',
-                                    style: TextStyle(
-                                      color: Colors.black87,
-                                      fontSize: 15.0,
-                                      fontWeight: FontWeight.bold,
-                                      letterSpacing: 0.5,
-                                    ),
-                                  ),
-                                  _verticalDivider(),
-                                  new Text(
-                                    '49 Bagwell Avenue',
-                                    style: TextStyle(
-                                        color: Colors.black45,
-                                        fontSize: 13.0,
-                                        letterSpacing: 0.5),
-                                  ),
-                                  _verticalDivider(),
-                                  new Text(
-                                    'Ocala',
-                                    style: TextStyle(
-                                        color: Colors.black45,
-                                        fontSize: 13.0,
-                                        letterSpacing: 0.5),
-                                  ),
-                                  _verticalDivider(),
-                                  new Text(
-                                    ' FL 34471',
-                                    style: TextStyle(
-                                        color: Colors.black45,
-                                        fontSize: 13.0,
-                                        letterSpacing: 0.5),
-                                  ),
-                                  new Container(
-                                    margin: EdgeInsets.only(
-                                        left: 00.0,
-                                        top: 05.0,
-                                        right: 0.0,
-                                        bottom: 5.0),
-                                    child: Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: <Widget>[
+                                        _verticalDivider(),
                                         new Text(
-                                          'Delivery Address',
+                                          addressList[index]['address'] +"\nPincode: "+ addressList[index]['pincode'],
                                           style: TextStyle(
-                                            fontSize: 15.0,
-                                            color: Colors.black12,
+                                              color: Colors.black54,
+                                              fontSize: 13.0,
+                                              letterSpacing: 0.5),
+                                        ),
+                                        _verticalDivider(),
+                                        new Text(
+                                          addressList[index]['city'] +", "+ addressList[index]['state'],
+                                          style: TextStyle(
+                                              color: Colors.black54,
+                                              fontSize: 13.0,
+                                              letterSpacing: 0.5),
+                                        ),
+                                        _verticalDivider(),
+                                        new Text(
+                                          addressList[index]['phone_number'],
+                                          style: TextStyle(
+                                              color: Colors.black54,
+                                              fontSize: 13.0,
+                                              letterSpacing: 0.5),
+                                        ),
+                                        _verticalDivider(),
+                                        new Container(
+                                          margin: EdgeInsets.all(0),
+                                          child: Row(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            children: <Widget>[
+                                              new Text(
+                                                'Select Address',
+                                                style: TextStyle(
+                                                  fontSize: 15.0,
+                                                  color: Colors.black26,
+                                                ),
+                                              ),
+                                              _verticalD(),
+                                              new Checkbox(
+                                                value: checkboxValueA,
+                                                onChanged: (bool value) {
+                                                  setState(() {
+                                                    checkboxValueA = value;
+                                                  });
+                                                },
+                                              ),
+                                            ],
                                           ),
-                                        ),
-                                        _verticalD(),
-                                        new Checkbox(
-                                          value: checkboxValueB,
-                                          onChanged: (bool value) {
-                                            setState(() {
-                                              checkboxValueB = value;
-                                            });
-                                          },
-                                        ),
+                                        )
                                       ],
                                     ),
-                                  )
+                                  ),
                                 ],
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
-                ),
-              ],
+                );
+              },
             ),
           ),
           _verticalDivider(),
@@ -453,14 +379,14 @@ class check_out extends State<Checkout> {
           Container(
             margin:
                 EdgeInsets.only(left: 12.0, top: 5.0, right: 12.0, bottom: 5.0),
-            height: 170.0,
+            height: 180.0,
             child: ListView.builder(
               itemCount: cartList.length,
               itemBuilder: (BuildContext cont, int index) {
+                double item_price = double.parse(cartList[index]['pricers']);
                 return SafeArea(
                   child: Column(
                     children: <Widget>[
-                      Divider(height: 15.0),
                       Container(
                         padding: EdgeInsets.all(5.0),
                         child: Row(
@@ -471,14 +397,14 @@ class check_out extends State<Checkout> {
                             Text(cartList[index]['name'],
                                 style: TextStyle(
                                     fontSize: 16.0,
-                                    color: Colors.black87,
+                                    color: Colors.green,
                                     fontWeight: FontWeight.bold)),
                             Text(cartList[index]['quantity'].toString(),
                                 style: TextStyle(
                                     fontSize: 16.0,
                                     color: Colors.black87,
                                     fontWeight: FontWeight.bold)),
-                            Text("₹ " + cartList[index]['pricers'],
+                            Text("₹ $item_price",
                                 style: TextStyle(
                                     fontSize: 16.0,
                                     color: Colors.black87,
@@ -486,43 +412,17 @@ class check_out extends State<Checkout> {
                           ],
                         ),
                       ),
+                      Divider(height: 15.0),
+                      Shipingdata(index, shipping_price),
                     ],
                   ),
                 );
               },
             ),
           ),
-          Divider(),
-          Container(
-            alignment: Alignment.bottomLeft,
-            padding: EdgeInsets.only(left:20.0,top:5,bottom:5),
-            height: 50.0,
-              child: Row(
-                mainAxisSize: MainAxisSize.max,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Text("Shipping",
-                      style: TextStyle(
-                          fontSize: 16.0,
-                          color: Colors.black87,
-                          fontWeight: FontWeight.bold)),
-                  Text("",
-                      style: TextStyle(
-                          fontSize: 16.0,
-                          color: Colors.black87,
-                          fontWeight: FontWeight.bold)),
-                  Text("₹ $shipping_price",
-                      style: TextStyle(
-                          fontSize: 16.0,
-                          color: Colors.black87,
-                          fontWeight: FontWeight.bold)),
-                ],
-              ),
-          ),
           Container(
               alignment: Alignment.bottomLeft,
-              height: 50.0,
+              height: 80.0,
               child: Card(
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
@@ -542,22 +442,24 @@ class check_out extends State<Checkout> {
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Container(
-                        alignment: Alignment.center,
-                        child: OutlineButton(
-                            borderSide:
-                                BorderSide(color: Colors.amber.shade500),
-                            child: const Text('CONFIRM ORDER'),
-                            textColor: Colors.amber.shade500,
-                            onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => Cart()));
-                            },
-                            shape: new OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(30.0),
-                            )),
+                      child: RaisedButton(
+                        child: new Text(
+                          "PROCEED TO PAY",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        // gives padding to the button
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Payment(
+                                        title: "Checkout",
+                                      )));
+                        },
+                        color: Colors.green,
                       ),
                     ),
                   ],
@@ -566,6 +468,62 @@ class check_out extends State<Checkout> {
         ],
       ),
     );
+  }
+
+  Shipingdata(index, shipping_price) {
+    if (index == (cartList.length - 1)) {
+      return Column(
+        children: <Widget>[
+          Container(
+            padding: EdgeInsets.all(5.0),
+            child: Row(
+              mainAxisSize: MainAxisSize.max,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Text("Shipping Charges",
+                    style: TextStyle(
+                        fontSize: 16.0,
+                        color: Colors.red,
+                        fontWeight: FontWeight.bold)),
+                Text("",
+                    style: TextStyle(
+                        fontSize: 16.0,
+                        color: Colors.black87,
+                        fontWeight: FontWeight.bold)),
+                Text("₹ $shipping_price",
+                    style: TextStyle(
+                        fontSize: 16.0,
+                        color: Colors.black87,
+                        fontWeight: FontWeight.bold)),
+              ],
+            ),
+          ),
+          Divider(height: 15.0),
+        ],
+      );
+    }
+    return Container();
+  }
+
+  addAddress(index) {
+    if (index == 0) {
+      return Container(
+        width: 56.0,
+        child: Card(
+          elevation: 3.0,
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              new Container(
+                  alignment: Alignment.center,
+                  child: IconButton(icon: Icon(Icons.add), onPressed: null)),
+            ],
+          ),
+        ),
+      );
+    }
+    return Container();
   }
 
   _verticalDivider() => Container(
