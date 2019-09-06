@@ -151,7 +151,7 @@ class _ProductsState extends State<Products> {
                   height: 65,
                   child: RaisedButton(
                     child: new Text(
-                      "Add To Cart" + widget.counter.toString(),
+                      "Add To Cart",
                       style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.w600,

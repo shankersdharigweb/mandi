@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:onlinemandi/sidebar.dart';
-import 'package:onlinemandi/banners.dart';
-import 'package:onlinemandi/cart/cart.dart';
-import 'package:onlinemandi/cart/checkout.dart';
+import 'package:onlinemandi/res/sidebar.dart';
+import 'package:onlinemandi/res/banners.dart';
+import 'package:onlinemandi/res/cart/cart.dart';
+import 'package:onlinemandi/res/cart/checkout.dart';
 
 class Payment extends StatefulWidget {
   final String title;
@@ -138,149 +138,129 @@ class paymentFinal extends State<Payment> {
       ],
     );
     bool success_val = false;
-    return new Scaffold(
-      key: _scaffoldKey,
-      appBar: appBar,
-      drawer: new Drawer(
-        child: Sidebar(),
+    return MaterialApp(
+      theme: ThemeData(
+        primarySwatch: Colors.green,
       ),
-      body: new Column(
-        children: <Widget>[
-          Container(
-            margin: EdgeInsets.all(5.0),
-            child: Card(
-              child: Container(
-                padding: const EdgeInsets.all(10.0),
-                child: Row(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    // three line description
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.only(bottom: 8.0),
-                          child: Container(
-                              alignment: Alignment.center,
-                              child: Row(
-                                children: <Widget>[
-                                  Text(
-                                    'Delivery',
-                                    style: TextStyle(
-                                        fontSize: 18.0,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.black38),
-                                  ),
-                                  IconButton(
-                                    icon: Icon(
-                                      Icons.play_circle_outline,
-                                      color: Colors.black38,
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        key: _scaffoldKey,
+        appBar: appBar,
+        drawer: new Drawer(
+          child: Sidebar(),
+        ),
+        body: new Column(
+          children: <Widget>[
+            Container(
+              margin: EdgeInsets.all(5.0),
+              child: Card(
+                child: Container(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      // three line description
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 8.0),
+                            child: Container(
+                                alignment: Alignment.center,
+                                child: Row(
+                                  children: <Widget>[
+                                    Text(
+                                      'Delivery',
+                                      style: TextStyle(
+                                          fontSize: 18.0,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.black38),
                                     ),
-                                    onPressed: () {
-                                      Navigator.of(context).push(
-                                        MaterialPageRoute(
-                                          builder: (context) {
-                                            return Checkout(
-                                              title: "Checkout",
-                                            );
-                                          },
-                                        ),
-                                      );
-                                    },
-                                  )
-                                ],
-                              )),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(bottom: 8.0),
-                          child: Container(
-                              alignment: Alignment.center,
-                              child: Row(
-                                children: <Widget>[
-                                  Text(
-                                    'Payment',
-                                    style: TextStyle(
-                                        fontSize: 18.0,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.black),
-                                  ),
-                                  IconButton(
+                                    IconButton(
                                       icon: Icon(
-                                        Icons.check_circle,
-                                        color: Colors.green,
+                                        Icons.play_circle_outline,
+                                        color: Colors.black38,
                                       ),
-                                      onPressed: null)
-                                ],
-                              )),
-                        ),
-                      ],
-                    ),
-                  ],
+                                      onPressed: () {
+                                        Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                            builder: (context) {
+                                              return Checkout(
+                                                title: "Checkout",
+                                              );
+                                            },
+                                          ),
+                                        );
+                                      },
+                                    )
+                                  ],
+                                )),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 8.0),
+                            child: Container(
+                                alignment: Alignment.center,
+                                child: Row(
+                                  children: <Widget>[
+                                    Text(
+                                      'Payment',
+                                      style: TextStyle(
+                                          fontSize: 18.0,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.black),
+                                    ),
+                                    IconButton(
+                                        icon: Icon(
+                                          Icons.check_circle,
+                                          color: Colors.green,
+                                        ),
+                                        onPressed: null)
+                                  ],
+                                )),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
-          ),
-          _verticalDivider(),
-          new Container(
-            alignment: Alignment.topLeft,
-            margin:
-                EdgeInsets.only(left: 12.0, top: 5.0, right: 0.0, bottom: 5.0),
-            child: new Text(
-              'Select Payment Method',
-              style: TextStyle(
-                  color: Colors.black87,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18.0),
+            _verticalDivider(),
+            new Container(
+              alignment: Alignment.topLeft,
+              margin: EdgeInsets.only(
+                  left: 12.0, top: 5.0, right: 0.0, bottom: 5.0),
+              child: new Text(
+                'Select Payment Method',
+                style: TextStyle(
+                    color: Colors.black87,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18.0),
+              ),
             ),
-          ),
-          _verticalDivider(),
-          new Container(
-            height: 150.0,
-            margin: EdgeInsets.all(10.0),
-            child: Card(
-              child: Container(
+            _verticalDivider(),
+            new Container(
+              height: 150.0,
+              margin: EdgeInsets.all(10.0),
+              child: Card(
                 child: Container(
-                  child: Column(
-                    children: <Widget>[
-                      Container(
-                        padding: EdgeInsets.only(left: 10.0),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            Text("Wallet / UPI",
-                                maxLines: 10,
-                                style: TextStyle(
-                                    fontSize: 15.0, color: Colors.black)),
-                            Radio<int>(
-                              groupValue: radioValue,
-                              value: 1,
-                              activeColor: Colors.green,
-                              onChanged: (val) {
-                                setState(() {
-                                  radioValue = val;
-                                });
-                              },
-                            ),
-                          ],
-                        ),
-                      ),
-                      Divider(),
-                      _verticalD(),
-                      Container(
+                  child: Container(
+                    child: Column(
+                      children: <Widget>[
+                        Container(
                           padding: EdgeInsets.only(left: 10.0),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
-                              Text("Cash on Delivery",
+                              Text("Wallet / UPI",
                                   maxLines: 10,
                                   style: TextStyle(
                                       fontSize: 15.0, color: Colors.black)),
                               Radio<int>(
                                 groupValue: radioValue,
-                                value: 2,
+                                value: 1,
                                 activeColor: Colors.green,
                                 onChanged: (val) {
                                   setState(() {
@@ -289,15 +269,40 @@ class paymentFinal extends State<Payment> {
                                 },
                               ),
                             ],
-                          )),
-                      Divider(),
-                    ],
+                          ),
+                        ),
+                        Divider(),
+                        _verticalD(),
+                        Container(
+                            padding: EdgeInsets.only(left: 10.0),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                Text("Cash on Delivery",
+                                    maxLines: 10,
+                                    style: TextStyle(
+                                        fontSize: 15.0, color: Colors.black)),
+                                Radio<int>(
+                                  groupValue: radioValue,
+                                  value: 2,
+                                  activeColor: Colors.green,
+                                  onChanged: (val) {
+                                    setState(() {
+                                      radioValue = val;
+                                    });
+                                  },
+                                ),
+                              ],
+                            )),
+                        Divider(),
+                      ],
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
-          Container(
+            Container(
               alignment: Alignment.bottomLeft,
               height: 80.0,
               child: Card(
@@ -340,14 +345,16 @@ class paymentFinal extends State<Payment> {
                   ],
                 ),
               ),
-          ),
-          successMessage(success_val),
-        ],
+            ),
+            successMessage(success_val),
+          ],
+        ),
       ),
     );
   }
-  successMessage(success){
-    if(success ==  true){
+
+  successMessage(success) {
+    if (success == true) {
       return Container(
         margin: EdgeInsets.all(10.0),
         child: Card(
@@ -370,6 +377,7 @@ class paymentFinal extends State<Payment> {
     }
     return Container();
   }
+
   _verticalDivider() => Container(
         padding: EdgeInsets.all(2.0),
       );

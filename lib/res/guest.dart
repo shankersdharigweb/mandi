@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:onlinemandi/sidebar.dart';
-import 'package:onlinemandi/login.dart';
-import 'package:onlinemandi/banners.dart';
+import 'package:onlinemandi/res/sidebar.dart';
+import 'package:onlinemandi/res/login.dart';
+import 'package:onlinemandi/res/banners.dart';
 
 class Guest extends StatefulWidget {
   final String title;
@@ -174,6 +174,7 @@ class _GuestState extends State<Guest> {
       theme: ThemeData(
         primarySwatch: Colors.green,
       ),
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: new AppBar(
           title: new Text(widget.title),

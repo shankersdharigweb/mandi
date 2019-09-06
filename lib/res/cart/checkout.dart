@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:onlinemandi/sidebar.dart';
-import 'package:onlinemandi/banners.dart';
-import 'package:onlinemandi/cart/cart.dart';
-import 'package:onlinemandi/cart/payment.dart';
+import 'package:onlinemandi/res/sidebar.dart';
+import 'package:onlinemandi/res/banners.dart';
+import 'package:onlinemandi/res/cart/cart.dart';
+import 'package:onlinemandi/res/cart/payment.dart';
 
 class Checkout extends StatefulWidget {
   final String title;
@@ -162,7 +162,13 @@ class check_out extends State<Checkout> {
         ),
       ],
     );
-    return new Scaffold(
+    return MaterialApp(
+
+        debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        primarySwatch: Colors.green,
+      ),
+        home: Scaffold(
       key: _scaffoldKey,
       appBar: appBar,
       drawer: new Drawer(
@@ -466,6 +472,7 @@ class check_out extends State<Checkout> {
                 ),
               )),
         ],
+      ),
       ),
     );
   }

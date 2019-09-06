@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:onlinemandi/sidebar.dart';
-import 'package:onlinemandi/login.dart';
-import 'package:onlinemandi/banners.dart';
+import 'package:onlinemandi/res/sidebar.dart';
+import 'package:onlinemandi/res/login.dart';
+import 'package:onlinemandi/res/banners.dart';
 
 class Register extends StatefulWidget {
   final String title;
@@ -253,6 +253,7 @@ class _RegisterState extends State<Register> {
       ),
     );
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.green,
       ),

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:onlinemandi/fruits.dart';
-import 'package:onlinemandi/register.dart';
-import 'package:onlinemandi/vegetables.dart';
-import 'package:onlinemandi/login.dart';
+import 'package:onlinemandi/res/fruits.dart';
+import 'package:onlinemandi/res/register.dart';
+import 'package:onlinemandi/res/vegetables.dart';
+import 'package:onlinemandi/res/login.dart';
 import 'package:onlinemandi/main.dart';
 
 class Sidebar extends StatelessWidget {

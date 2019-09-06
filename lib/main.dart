@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:onlinemandi/login.dart';
-import 'package:onlinemandi/register.dart';
-import 'package:onlinemandi/guest.dart';
-import 'package:onlinemandi/loader.dart';
+import 'package:onlinemandi/res/login.dart';
+import 'package:onlinemandi/res/register.dart';
+import 'package:onlinemandi/res/guest.dart';
+import 'package:onlinemandi/res/loader.dart';
 import 'dart:async';
 void main() => runApp(MyApp());
 
@@ -13,6 +13,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.green,
       ),

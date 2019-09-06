@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:onlinemandi/product/products.dart';
-import 'package:onlinemandi/sidebar.dart';
-import 'package:onlinemandi/banners.dart';
-import 'package:onlinemandi/cart/cartItems.dart';
-import 'package:onlinemandi/cart/checkout.dart';
+import 'package:onlinemandi/res/product/products.dart';
+import 'package:onlinemandi/res/sidebar.dart';
+import 'package:onlinemandi/res/banners.dart';
+import 'package:onlinemandi/res/cart/cartItems.dart';
+import 'package:onlinemandi/res/cart/checkout.dart';
 
 class Cart extends StatefulWidget {
   final String title;
@@ -83,7 +83,12 @@ class _CartState extends State<Cart> {
 
     return DefaultTabController(
       length: 3,
-      child: Scaffold(
+      child: MaterialApp(
+        theme: ThemeData(
+          primarySwatch: Colors.green,
+        ),
+        debugShowCheckedModeBanner: false,
+        home:Scaffold(
         appBar: new AppBar(
           title: new Text(widget.title),
           actions: <Widget>[
@@ -260,6 +265,7 @@ class _CartState extends State<Cart> {
               ),
             ],
           ),
+        ),
         ),
       ),
     );
